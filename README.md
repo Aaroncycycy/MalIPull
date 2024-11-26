@@ -1,4 +1,4 @@
-# Malicious IP Scraper
+# MalIPull - A Simple Malicious IP Scraper
 
 This Bash script scrapes IP addresses from various websites known to provide malicious or high-risk IP lists. The script then compiles and consolidates these IP addresses into a single file. The user interface is powered by **Zenity** for a smoother experience, displaying progress bars and success/error messages during the execution.
 

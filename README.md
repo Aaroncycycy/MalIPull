@@ -36,3 +36,9 @@ This Bash script scrapes IP addresses from various websites known to provide mal
 
 ```bash
 Malicious IPs successfully compiled. List saved to malicious_ips_consolidated.txt
+
+Contributions are welcome! If you encounter any issues or have feature requests, feel free to submit an [issue](https://github.com/your-username/DirSentinel/issues) or open a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

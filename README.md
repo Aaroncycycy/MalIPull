@@ -13,7 +13,6 @@ This Bash script scrapes IP addresses from various websites known to provide mal
 
 ### Prerequisites
 
-- A Unix-like system (Linux, macOS, etc.)
 - **Zenity** (GUI utility) installed. The script will attempt to install Zenity automatically if it is not found.
 
 ### How to Use

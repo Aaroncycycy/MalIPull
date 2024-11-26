@@ -7,7 +7,7 @@ This Bash script scrapes IP addresses from various websites known to provide mal
 - **Scrapes multiple sources**: Collects malicious IPs from multiple trusted websites.
 - **Zenity UI**: Provides a graphical progress bar, success, and error messages.
 - **Automatic Zenity installation**: The script checks if Zenity is installed and installs it if necessary.
-- **Rate limiting**: The script pauses between requests to avoid overwhelming the target websites.
+- **Rate limiting**: The script pauses between requests to avoid overwhelming the target websites. (So you dont get blocked)
 
 ## Installation
 

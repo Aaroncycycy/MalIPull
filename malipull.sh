@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ========== Check for curl ==========
+#  Check for curl
 check_curl() {
     if ! command -v curl &> /dev/null; then
         echo "Curl is not installed. Attempting to install..."
@@ -22,14 +22,13 @@ check_curl() {
             exit 1
         fi
     else
-        echo "✅ Curl is installed."
+        echo "Curl is installed."
     fi
 }
 
-# Call the curl check before anything else
 check_curl
 
-# ========== JQ Check (only for JSON output) ==========
+# JQ Check (For JSON output)
 check_jq() {
     if ! command -v jq &> /dev/null; then
         echo "jq is not installed. Attempting to install..."
@@ -52,7 +51,7 @@ check_jq() {
     fi
 }
 
-# ========== MODE SELECTION ==========
+#  MODE SELECTION
 echo "How would you like to run this?"
 echo "1) Application Mode (Zenity GUI)"
 echo "2) CLI Mode (Text-based)"
@@ -65,7 +64,7 @@ else
     USE_CLI_MODE=false
 fi
 
-# ========== File Paths ==========
+#  THESE ARE THE DEFAULT FILE PATHS
 CONFIG_DIR="/etc/MalIPull_Configs"
 FEEDS_FILE="$CONFIG_DIR/feeds.txt"
 CONFIG_FILE="$CONFIG_DIR/config.cfg"
@@ -73,7 +72,7 @@ LOG_DIR="/var/log/MalIPull_Logs/$USER"
 SCHEDULER_PID="$CONFIG_DIR/scheduler.pid"
 USER_FILE="$CONFIG_DIR/UserShadows.txt"
 
-# Create log directory if it doesn't exist
+# Create log directory if it doesnt exist
 if [ ! -d "$LOG_DIR" ]; then
     sudo mkdir -p "$LOG_DIR"
     sudo chown "$USER":"$USER" "$LOG_DIR"
@@ -85,11 +84,11 @@ if [ ! -d "$CONFIG_DIR" ]; then
     sudo chown "$USER:$USER" "$CONFIG_DIR"
 fi
 
-# Create config file if it doesn't exist
+# Create config file if it doesnt exist
 touch "$CONFIG_FILE"
 
 
-# Create feeds file with default sources if it doesn't exist or is empty
+# Create feeds file with default sources if it doesnt exist (or is empty)
 if [ ! -s "$FEEDS_FILE" ]; then
     cat <<EOF > "$FEEDS_FILE"
 https://www.projecthoneypot.org/list_of_ips.php
@@ -101,14 +100,14 @@ EOF
 fi
 
 
-# ========== Load Config ==========
+#  Load Config 
 OUTPUT_FORMAT=$(grep "format=" "$CONFIG_FILE" | cut -d= -f2)
 if [ -z "$OUTPUT_FORMAT" ]; then
     OUTPUT_FORMAT="csv"
     echo "format=$OUTPUT_FORMAT" > "$CONFIG_FILE"
 fi
 
-# ========== Utility Functions ==========
+# Utility Functions
 extract_ips() {
     grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | grep -v '^0\.' | sort -u
 }
@@ -164,7 +163,7 @@ run_scan_cli() {
     rm "$TEMP_IP_FILE" "$TEMP_IP_FILE.sorted"
 }
 
-# ========== Login / Admin Setup For CLI==========
+# Login / Admin Setup For CLI (Need to add PW Policy)
 
 cli_login() {
     # If no admin account exists, prompt to create one
@@ -224,7 +223,7 @@ cli_login() {
 }
 
 
-# ========== CLI MODE ==========
+#  CLI MODE 
 if [ "$USE_CLI_MODE" = true ]; then
     cli_login
 
@@ -464,7 +463,7 @@ if [ "$USE_CLI_MODE" = true ]; then
     exit 0
 fi
 
-# ========== GUI/ZENITY MODE SECTION==========
+# GUI/ZENITY MODE SECTION
 
 # Function to check if Zenity is installed or fall back to CLI
 check_zenity() {
@@ -497,7 +496,7 @@ check_zenity() {
 }
 
 
-# ========== Zenity Check ==========
+# Knock knock. Whose there? Zenity. Zenity who?......Zenity who?.........Zenity who?..........Hello?...................Zenity who? 
 check_zenity
 
 # ========== File Paths ==========
@@ -508,13 +507,11 @@ LOG_DIR="/var/log/MalIPull_Logs/$USER"
 SCHEDULER_PID="$CONFIG_DIR/scheduler.pid"
 USER_FILE="$CONFIG_DIR/UserShadows.txt"
 
-# ========== Login / Admin Setup For Zenity (Testing out multi-roles)==========
-
-# ========== Enhanced User Authentication with Role Support ==========
-
+# Login / Admin Setup For Zenity (Testing out multi-roles... and PW Policy)
+#ROLE SUPPORT
 # Ensure UserShadows.txt exists
 if [ ! -f "$USER_FILE" ]; then
-    zenity --info --text="Welcome! Let's create the first Admin account."
+    zenity --info --text="Welcome! It looks like this is your first time running MalIPull. Let's create your admin account."
 
     while true; do
         ADMIN_USERNAME=$(zenity --entry --title="Create Admin Username" --text="Enter a username:")
@@ -598,14 +595,14 @@ EOF
 fi
 
 
-# ========== Load Config ==========
+# Load Config 
 OUTPUT_FORMAT=$(grep "format=" "$CONFIG_FILE" | cut -d= -f2)
 if [ -z "$OUTPUT_FORMAT" ]; then
     OUTPUT_FORMAT="csv"
     echo "format=$OUTPUT_FORMAT" > "$CONFIG_FILE"
 fi
 
-# Extract IPs using grep with basic IPv4 pattern
+# Extract IPs using grep
 extract_ips() {
     grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | grep -v '^0\.' | sort -u
 }
@@ -645,8 +642,7 @@ run_scan() {
     sort -u "$MASTER_LIST" -o "$MASTER_LIST"
 
     if [ "$OUTPUT_FORMAT" == "json" ]; then
-        check_jq  # ✅ Check for jq only when needed
-
+        check_jq  # Check for jq only when needed
         jq -Rs --arg timestamp "$TIMESTAMP" \
     '{ timestamp: $timestamp, indicators: split("\n") | map(select(length > 0)) }' \
     < "$MASTER_LIST" > "output.json"
@@ -660,9 +656,9 @@ run_scan() {
     rm "$TEMP_IP_FILE" "$TEMP_IP_FILE.sorted"
 }
 
-# ========== Main Menu ==========
+#  Main Menu
 while true; do
-    CHOICE=$(zenity --list --title="Threat Feed Aggregator" \
+    CHOICE=$(zenity --list --title="MalIPull: Threat Feed Aggregator" \
     --width=500 --height=600 \
         --column="Menu Option" \
         "Run Scan" \
@@ -819,7 +815,7 @@ while true; do
         "Instructions")
             zenity --text-info --width=500 --height=600 \
                 --title="Instructions" \
-                # Need to add instructions.txt file to the configs directory. (Ill do this later)
+                # Need to add instructions.txt file to the configs directory. (Watch me completely forget to do this lol)
                 --filename="instructions.txt"
             ;;
 
@@ -859,7 +855,7 @@ while true; do
         continue
     fi
 
-    # Get new password and confirm it
+    # Get new password and double check
     NEW_PASSWORD=$(zenity --password --title="Enter New Password")
     CONFIRM_PASSWORD=$(zenity --password --title="Confirm New Password")
 

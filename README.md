@@ -51,15 +51,4 @@ Now MalIPull will run from the terminal just by typing in "malipull" regardless 
 
 ---
 
-## Tool Capabilities:
-
-- | Feature           | Description                                                   |
-| ----------------- | ------------------------------------------------------------- |
-| Run Scan          | Aggregates IPs from all feeds and detects new threats         |
-| Output Formats    | Export full or differential results in CSV or JSON            |
-| Feed Management   | Add or remove threat feed URLs with input validation          |
-| User Management   | Add Admins or Analysts; change passwords; restrict user roles |
-| Daily Scheduler   | Schedule background scans with configurable time window       |
-| Role-Based Access | Restricts advanced settings to Admins only                    |
-| Log Review        | View scan logs and summaries via GUI or CLI                   |
 

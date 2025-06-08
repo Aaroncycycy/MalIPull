@@ -35,3 +35,7 @@ Developed as part of a cybersecurity capstone project for, the tool enables orga
 ```bash
 wget https://raw.githubusercontent.com/Aaroncycycy/MalIPull/refs/heads/main/malipull.sh
 chmod +x malipull.sh
+
+---
+
+## 📦 Running

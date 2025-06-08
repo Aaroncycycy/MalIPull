@@ -1,45 +1,37 @@
-# MalIPull - A Simple Malicious IP Scraper
+# 🛡️ MalIPull - Threat Feed Aggregator
 
-This Bash script scrapes IP addresses from various websites known to provide malicious or high-risk IP lists. The script then compiles and consolidates these IP addresses into a single file. The user interface is powered by **Zenity** for a smoother experience, displaying progress bars and success/error messages during the execution.
+MalIPull is a lightweight, open-source Bash-based threat feed aggregator designed to help resource-constrained organizations collect, consolidate, and review malicious IP addresses from public threat intelligence sources. Built with both CLI and GUI interfaces (using Zenity), MalIPull is intended for easy deployment and operation in environments where proactive cybersecurity measures are needed without enterprise-scale budgets.
 
-## Features
+Developed as part of a cybersecurity capstone project for, the tool enables organizations to automate threat monitoring, enforce role-based access control, and export structured indicators of compromise for further analysis or SIEM integration.
 
-- **Scrapes multiple sources**: Collects malicious IPs from multiple trusted websites.
-- **Zenity UI**: Provides a graphical progress bar, success, and error messages.
-- **Automatic Zenity installation**: The script checks if Zenity is installed and installs it if necessary.
-- **Rate limiting**: The script pauses between requests to avoid overwhelming the target websites. (So you dont get blocked)
+---
 
-## Installation
+## 🚀 Features
 
-### Prerequisites
+- ✅ **Aggregates malicious IPs** from multiple public threat intelligence feeds  
+- 🖥️ **Zenity GUI and CLI modes** for flexible operation across user roles  
+- 🔐 **Role-based authentication** (Admin/Analyst) with salted SHA-256 password hashing  
+- 📅 **Automated daily scan scheduler** with differential IP logging  
+- 📄 **Structured output** in CSV or JSON  
+- 🔍 **Differential tracking** of new indicators between scans  
+- 🧰 **Self-validates and installs dependencies** like `curl`, `jq`, and `zenity` on supported systems  
+- 🧱 **Low system overhead**—suitable for virtual machines, legacy hardware, and Raspberry Pi  
+- 📚 Includes a full-featured **User & Admin Guide**  
 
-- **Zenity** (GUI utility) installed. The script will attempt to install Zenity automatically if it is not found.
+---
 
-### How to Use
+## 📦 Installation
 
-1. **Clone the repository** or download the script:
-    ```bash
-    git clone https://github.com/yourusername/malicious-ip-scraper.git
-    cd malicious-ip-scraper
-    ```
+### Requirements
 
-2. **Run the script**:
-    ```bash
-    ./scrape_malicious_ips.sh
-    ```
+- Linux OS (Ubuntu, Debian, RedHat, Arch)  
+- Bash 4.x or later  
+- `curl`, `jq`, and `zenity` (installed automatically if not present)  
 
-   The script will check if **Zenity** is installed. If not, it will attempt to install Zenity using your system's package manager. Once Zenity is available, the script will scrape the defined websites for malicious IPs and display a progress bar. 
+### Setup Instructions
 
-3. **Output**: The resulting IP list will be saved in the `malicious_ips_consolidated.txt` file.
-
-### Example Output
+1. **Download the Script**
 
 ```bash
-Malicious IPs successfully compiled. List saved to malicious_ips_consolidated.txt
-```
-
-Contributions are welcome! If you encounter any issues or have feature requests, feel free to submit an [issue](https://github.com/your-username/DirSentinel/issues) or open a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+wget https://raw.githubusercontent.com/Aaroncycycy/MalIPull/refs/heads/main/malipull.sh
+chmod +x malipull.sh

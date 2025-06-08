@@ -51,4 +51,5 @@ Now MalIPull will run from the terminal just by typing in "malipull" regardless 
 
 ---
 
-
+## User Guide
+- [Link to User & Admin Guide](https://github.com/Aaroncycycy/MalIPull/blob/main/MalIPull%20User%20%26%20Admin%20Guide.pdf)

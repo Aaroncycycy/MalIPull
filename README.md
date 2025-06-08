@@ -35,7 +35,31 @@ Developed as part of a cybersecurity capstone project for, the tool enables orga
 ```bash
 wget https://raw.githubusercontent.com/Aaroncycycy/MalIPull/refs/heads/main/malipull.sh
 chmod +x malipull.sh
+```
+---
+
+## Running MalIPull
+- Simply navigate to the directory and type in "bash malipull.sh"
+- alternatively you move malipull's directory to PATH if you want to be able to run it from anywhere just by typing in "malipull"
+For example:
+  
+```bash
+sudo mv /path/to/malipull.sh /usr/local/bin/malipull
+chmod +x /usr/local/bin/malipull
+```
+Now MalIPull will run from the terminal just by typing in "malipull" regardless of the directory you are currently in.
 
 ---
 
-## 📦 Running
+## Tool Capabilities:
+
+- | Feature           | Description                                                   |
+| ----------------- | ------------------------------------------------------------- |
+| Run Scan          | Aggregates IPs from all feeds and detects new threats         |
+| Output Formats    | Export full or differential results in CSV or JSON            |
+| Feed Management   | Add or remove threat feed URLs with input validation          |
+| User Management   | Add Admins or Analysts; change passwords; restrict user roles |
+| Daily Scheduler   | Schedule background scans with configurable time window       |
+| Role-Based Access | Restricts advanced settings to Admins only                    |
+| Log Review        | View scan logs and summaries via GUI or CLI                   |
+
